@@ -1,5 +1,4 @@
-
-def SJF(arrival_time, number_of_processes, burst_time):
+def Priority(arrival_time, number_of_processes, priority_sequence, burst_time):
     #### initialize clock ####
     current_clock_cycle = 0
 
@@ -20,7 +19,7 @@ def SJF(arrival_time, number_of_processes, burst_time):
             if remaining_time[pID] != 0:
                 if remaining_time[current_process] == 0: current_process = pID
                 if current_clock_cycle >= arrival_time[pID]:
-                    if remaining_time[current_process] > remaining_time[pID] or remaining_time[current_process] == 0:
+                    if priority_sequence[current_process] < priority_sequence[pID]:
                         current_process = pID
 
         #### check if arrival time of current process is reached ####
@@ -50,8 +49,10 @@ def SJF(arrival_time, number_of_processes, burst_time):
     print("\nAverage waiting time = %.5f " % (total_waiting_time / number_of_processes))
     print("Average turn around time = %.5f " % (total_turn_around_time / number_of_processes))
 
-if(__name__ == "__main__"):
-    arrival_time = [0, 1, 2, 4]
+if __name__ == "__main__":
+    arrival_time = [0,1,2,4]
     number_of_processes = 4
-    burst_time = [5, 3 , 4 , 1 ]
-    SJF(arrival_time, number_of_processes, burst_time)
+    burst_time = [5,4,2,1]
+    priority_sequence = [10,20,30,40]
+    Priority(arrival_time, number_of_processes, priority_sequence, burst_time)
+

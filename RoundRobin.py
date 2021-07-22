@@ -1,6 +1,3 @@
-# write a python program to illustrate round robin algorithm
-
-
 def round_robbin(arrival_time, number_of_processes, burst_time, time_quantum):
 
     #### initialize two queues for round robbin ####
@@ -13,18 +10,18 @@ def round_robbin(arrival_time, number_of_processes, burst_time, time_quantum):
 
     #### initialize remaining_time with burst_time ####
     remaining_time = [0] * number_of_processes
-    for x in range(number_of_processes): remaining_time[x] = burst_time[x]
+    for pID in range(number_of_processes): remaining_time[pID] = burst_time[pID]
 
     #### initialize starting process as 0 ####
     current_process = 0
 
     while True:
         #### check new processes and append to the ready queue ####
-        for x in range(number_of_processes):
-            if x > current_clock_cycle: break
-            if remaining_time[x] != 0 and x != current_process:
-                if arrival_time[x] <= current_clock_cycle and x not in ready_queue:
-                    ready_queue.append(x)
+        for pID in range(number_of_processes):
+            if pID > current_clock_cycle: break
+            if remaining_time[pID] != 0 and pID != current_process:
+                if arrival_time[pID] <= current_clock_cycle and pID not in ready_queue:
+                    ready_queue.append(pID)
 
         #### append previous current process to the end of the ready queue ####
         if remaining_time[current_process] != 0: ready_queue.append(current_process) 
@@ -65,8 +62,7 @@ def round_robbin(arrival_time, number_of_processes, burst_time, time_quantum):
     print("\nAverage waiting time = %.5f " % (total_waiting_time / number_of_processes))
     print("Average turn around time = %.5f " % (total_turn_around_time / number_of_processes))
 
-
-if(__name__ == "__main__"):
+if __name__ == "__main__":
     arrival_time = [0,1, 2, 3, 4]
     number_of_processes = 5
     burst_time = [5,3,1,2,3]
