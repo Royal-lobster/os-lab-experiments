@@ -8,8 +8,7 @@ def SJF(arrival_time, number_of_processes, burst_time):
     waiting_time = [0] * number_of_processes
 
     #### initialize remaining_time with burst_time ####
-    remaining_time = [0] * number_of_processes
-    for pID in range(number_of_processes): remaining_time[pID] = burst_time[pID]
+    remaining_time = [x for x in burst_time]
 
     #### initialize starting process as 0 ####
     current_process = 0
@@ -18,7 +17,6 @@ def SJF(arrival_time, number_of_processes, burst_time):
         #### check new processes appeared and assign current process ####
         for pID in range(number_of_processes):
             if remaining_time[pID] != 0:
-                if remaining_time[current_process] == 0: current_process = pID
                 if current_clock_cycle >= arrival_time[pID]:
                     if remaining_time[current_process] > remaining_time[pID] or remaining_time[current_process] == 0:
                         current_process = pID
@@ -51,7 +49,7 @@ def SJF(arrival_time, number_of_processes, burst_time):
     print("Average turn around time = %.5f " % (total_turn_around_time / number_of_processes))
 
 if(__name__ == "__main__"):
-    arrival_time = [0, 1, 2, 4]
+    arrival_time = [1, 1, 2, 3]
     number_of_processes = 4
-    burst_time = [5, 3 , 4 , 1 ]
+    burst_time = [6, 8, 7, 3 ]
     SJF(arrival_time, number_of_processes, burst_time)
