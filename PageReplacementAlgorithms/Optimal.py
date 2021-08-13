@@ -26,15 +26,19 @@ if __name__ == "__main__":
         else:            
             #### If memory is full, then remove the LRU page from the memory and in counter ####
             if len(memory) == memory_limit:
-                future_page_list = []
+                ordered_future_pages = []
+                #### Iterate through the memory and append the future page to the list ####
                 for future_page in pages[index+1 : len(pages)]:
-                    if len(future_page_list) == len(memory): break
-                    if future_page in memory and future_page not in future_page_list:
-                        future_page_list.append(future_page)
-                if len(future_page_list) != len(memory):
-                    redundant_pages = [x for x in memory if x not in future_page_list]
-                    future_page_list = future_page_list + redundant_pages
-                memory.remove(future_page_list[-1])
+                    if len(ordered_future_pages) == len(memory): break
+                    if future_page in memory and future_page not in ordered_future_pages:
+                        ordered_future_pages.append(future_page)
+
+                #### Remove the LRU page from the memory and in counter ####
+                if len(ordered_future_pages) < len(memory):
+                    redundant_pages = [x for x in memory if x not in ordered_future_pages]
+                    ordered_future_pages = ordered_future_pages + redundant_pages
+                    
+                memory.remove(ordered_future_pages[-1])
 
 
             #### add page to memory and update the recently used count ####
