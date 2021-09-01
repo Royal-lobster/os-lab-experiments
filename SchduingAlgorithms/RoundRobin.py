@@ -9,8 +9,7 @@ def round_robbin(arrival_time, number_of_processes, burst_time, time_quantum):
     waiting_time = [0] * number_of_processes
 
     #### initialize remaining_time with burst_time ####
-    remaining_time = [0] * number_of_processes
-    for pID in range(number_of_processes): remaining_time[pID] = burst_time[pID]
+    remaining_time = [burst_time[i] for i in range(number_of_processes)]
 
     #### initialize starting process as 0 ####
     current_process = 0
@@ -18,9 +17,8 @@ def round_robbin(arrival_time, number_of_processes, burst_time, time_quantum):
     while True:
         #### check new processes and append to the ready queue ####
         for pID in range(number_of_processes):
-            if pID > current_clock_cycle: break
-            if remaining_time[pID] != 0 and pID != current_process:
-                if arrival_time[pID] <= current_clock_cycle and pID not in ready_queue:
+            if current_clock_cycle >= arrival_time[pID] and remaining_time[pID] != 0:
+                if pID not in ready_queue and pID != current_process:
                     ready_queue.append(pID)
 
         #### append previous current process to the end of the ready queue ####

@@ -16,10 +16,9 @@ def SJF(arrival_time, number_of_processes, burst_time):
     while True:
         #### check new processes appeared and assign current process ####
         for pID in range(number_of_processes):
-            if remaining_time[pID] != 0:
-                if current_clock_cycle >= arrival_time[pID]:
-                    if remaining_time[current_process] > remaining_time[pID] or remaining_time[current_process] == 0:
-                        current_process = pID
+            if current_clock_cycle >= arrival_time[pID] and remaining_time[pID] != 0:
+                if remaining_time[current_process] > remaining_time[pID] or remaining_time[current_process] == 0:
+                    current_process = pID
 
         #### check if arrival time of current process is reached ####
         if current_clock_cycle >= arrival_time[current_process]: 

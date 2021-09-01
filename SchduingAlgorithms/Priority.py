@@ -7,8 +7,7 @@ def Priority(arrival_time, number_of_processes, priority_sequence, burst_time):
     waiting_time = [0] * number_of_processes
 
     #### initialize remaining_time with burst_time ####
-    remaining_time = [0] * number_of_processes
-    for pID in range(number_of_processes): remaining_time[pID] = burst_time[pID]
+    remaining_time = [burst_time[i] for i in range(number_of_processes)]
 
     #### initialize starting process as 0 ####
     current_process = 0
@@ -16,11 +15,9 @@ def Priority(arrival_time, number_of_processes, priority_sequence, burst_time):
     while True:
         #### check new processes appeared and assign current process ####
         for pID in range(number_of_processes):
-            if remaining_time[pID] != 0:
-                if remaining_time[current_process] == 0: current_process = pID
-                if current_clock_cycle >= arrival_time[pID]:
-                    if priority_sequence[current_process] < priority_sequence[pID]:
-                        current_process = pID
+            if current_clock_cycle >= arrival_time[pID] and remaining_time[pID] != 0:
+                if priority_sequence[current_process] < priority_sequence[pID] or remaining_time[current_process] == 0:
+                    current_process = pID
 
         #### check if arrival time of current process is reached ####
         if current_clock_cycle >= arrival_time[current_process]: 

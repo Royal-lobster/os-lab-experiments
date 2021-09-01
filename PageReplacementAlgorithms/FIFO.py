@@ -12,7 +12,7 @@ if __name__ == "__main__":
 
     #### Initialize the FIFO Queue ####
     memory = []
-    queue_limit = 4
+    memory_limit = 4
     page_fault_count = 0
     page_hit_count = 0
 
@@ -21,7 +21,7 @@ if __name__ == "__main__":
         if page in memory:
             page_hit_count += 1
         else:
-            if len(memory) == queue_limit:
+            if len(memory) == memory_limit:
                 memory.pop(0)
             memory.append(page)
             page_fault_count += 1
