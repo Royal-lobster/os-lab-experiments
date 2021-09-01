@@ -1,4 +1,4 @@
-# Simulate the file allocation for sequenced stratagy
+# Simulate the file allocation for sequenced strategy
 
 import pprint
 def serialized_file_allocation(disk, block_size, directory, files):
@@ -8,16 +8,14 @@ def serialized_file_allocation(disk, block_size, directory, files):
         blocks_consumed = 0
         starting_block =  len(disk) + 1 if len(disk) != 0 else 0
 
-        #### allocate file to disk and update dictonary ####
+        #### allocate file to disk and update dictionary ####
         while file_size_to_allocate != 0:
-
             #### if remaining file size is greater than block size then allocate entire block
             if file_size_to_allocate >= block_size:
                 file_size_to_allocate -= block_size
                 disk.append({"File Name": file_name, "Space Occupied": block_size})
                 blocks_consumed += 1
-
-            #### if remaining file size is smaller than block size then allocate acordingly
+            #### if remaining file size is smaller than block size then allocate accordingly
             else:
                 disk.append({"File Name": file_name, "Space Occupied": file_size_to_allocate})
                 file_size_to_allocate = 0
