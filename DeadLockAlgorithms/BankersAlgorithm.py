@@ -34,7 +34,6 @@ def ResourceRequest(Process, Request, Available, Allocation, Max):
         Allocation[Process][x] = Allocation[Process][x] + Request[x]
         Need[Process][x] = Need[Process][x] - Request[x]
     safetyAlgorithm(Available, Allocation, Max, Need, number_of_process, number_of_resources) 
-    
 
 def safetyAlgorithm(Available, Allocation, Max, Need, number_of_process, number_of_resources):
     #### Initialize ####
@@ -51,7 +50,7 @@ def safetyAlgorithm(Available, Allocation, Max, Need, number_of_process, number_
             for current_resource in range(number_of_resources):
                 if Need[current_process][current_resource] > Work[current_resource] and is_process_need_safe:
                     is_process_need_safe = False 
-                if not is_process_need_safe: break
+                if is_process_need_safe == False: break
 
             #### check if the allocation for this round is safe and then allocate ####
             if Finish[current_process] == False and is_process_need_safe:
@@ -65,7 +64,9 @@ def safetyAlgorithm(Available, Allocation, Max, Need, number_of_process, number_
                 print("System is safe to grant the request")
                 print("The safe sequence is: ", SafeSequence)
                 break
-        
+    if Finish != [True] * number_of_process:
+        print("System is not safe to grant the request")    
+
 if __name__ == "__main__":
     Available = [3, 3, 2]
     Allocation = [[0, 1, 0],[2, 0, 0], [3, 0, 2],[2, 1, 1], [0, 0, 2]]
